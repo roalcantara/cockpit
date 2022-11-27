@@ -1,0 +1,8 @@
+failure-threshold: warning
+ignored:
+  - DL3018
+  - DL3008
+strict-labels: false
+trustedRegistries:
+  - docker.io
+  - gcr.io
