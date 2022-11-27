@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  ncc-1701:
+    container_name: cockpit_ncc-1701
+    image: roalcantara/cockpit:ncc-1701
+    labels:
+      description: "An opiopnated Dev Environment based on Alpine linux."
+    env_file: .env
+    build:
+      context: .
+      target: ncc-1701
+      # variables to be used on the image
+      args:
+        # the user's username
+        USERNAME: $USERNAME
+        # the user's group
+        GROUPNAME: $GROUPNAME
+        # the timezone
+        TZ: $TZ
+        # whether to enable BuildKit - https://docs.docker.com/build/buildkit
+        DOCKER_BUILDKIT: $DOCKER_BUILDKIT
+    # configures service containers to run with an allocated stdin (docker run -i)
+    stdin_open: true
+    # configure service container to run with a TTY (docker run -t)
+    tty: true
