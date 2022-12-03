@@ -6,6 +6,7 @@ services:
     image: roalcantara/cockpit:ncc-1701
     labels:
       description: "An opiopnated Dev Environment based on Alpine linux."
+      org.opencontainers.image.source: https://github.com/roalcantara/cockpit
     env_file: .env
     build:
       context: .
@@ -13,13 +14,15 @@ services:
       # variables to be used on the image
       args:
         # the user's username
-        USERNAME: $USERNAME
+        USERNAME: ${USERNAME:-dev}
         # the user's group
-        GROUPNAME: $GROUPNAME
+        GROUPNAME: ${GROUPNAME:-wheel}
         # the timezone
-        TZ: $TZ
+        TZ: ${TZ:-America/Sao_Paulo}
         # whether to enable BuildKit - https://docs.docker.com/build/buildkit
-        DOCKER_BUILDKIT: $DOCKER_BUILDKIT
+        DOCKER_BUILDKIT: ${DOCKER_BUILDKIT:-1}
+        # turn on the inline layer caching - https://docs.docker.com/build/buildkit
+        BUILDKIT_INLINE_CACHE: ${BUILDKIT_INLINE_CACHE:-1}
     # configures service containers to run with an allocated stdin (docker run -i)
     stdin_open: true
     # configure service container to run with a TTY (docker run -t)
