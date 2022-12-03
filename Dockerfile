@@ -11,10 +11,10 @@ ARG GIT_AUTHOR_NAME=Rogério R. Alcântara
 ARG GIT_AUTHOR_EMAIL=rogerio.alcantara@gmail.com
 ARG GIT_COMMITTER_NAME=roalcantara
 ARG GIT_COMMITTER_EMAIL=rogerio.alcantara@gmail.com
-ENV GIT_AUTHOR_NAME=$GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL=$GIT_AUTHOR_EMAIL GIT_COMMITTER_NAME=$GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL=$GIT_COMMITTER_EMAIL
+ENV GIT_AUTHOR_NAME=$GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL=$GIT_AUTHOR_EMAIL GIT_COMMITTER_NAME=$GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL=$GIT_COMMITTER_EMAIL GPG_TTY=/dev/console
 
 RUN apk -U --no-cache add sudo tzdata \
-  git delta fzf fd bat lazygit \
+  git delta fzf fd bat lazygit git-credential-libsecret gnupg \
   && adduser -S "$USERNAME" -G "$GROUPNAME" -h "$HOME" --disabled-password \
   && echo "%$GROUPNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
   && mkdir -p $HOME
