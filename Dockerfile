@@ -1,13 +1,10 @@
 # syntax=docker/dockerfile:1
 
 FROM alpine:3.17 AS ncc-1701
-# the username
-ARG USERNAME naruto
-# the user group
-ARG GROUPNAME wheel
-# Specifying the Time Zone
-ARG TZ Asia/Tokyo
-ENV HOME /home/$USERNAME
+ARG USERNAME=dev
+ARG GROUPNAME=wheel
+ARG TZ=America/Sao_Paulo
+ENV HOME=/home/$USERNAME
 
 RUN apk -U --no-cache add sudo tzdata \
   && adduser -S "$USERNAME" -G "$GROUPNAME" -h "$HOME" --disabled-password \

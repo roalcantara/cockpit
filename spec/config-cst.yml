@@ -1,0 +1,28 @@
+schemaVersion: 2.0.0
+
+commandTests:
+  - name: User should exist
+    command: whoami
+    expectedOutput: ["dev"]
+
+fileExistenceTests:
+  - name: HOME
+    path: /home/dev
+    shouldExist: true
+    permissions: dgrwxr-xr-x
+    uid: 100
+    gid: 10
+
+fileContentTests:
+  - name: sudoers
+    path: /etc/sudoers
+    expectedContents: ['.*wheel ALL=\(ALL\) NOPASSWD:ALL.*']
+
+metadataTest:
+  envVars:
+    - key: HOME
+      value: /home/dev
+  workdir: /home/dev
+  cmd: [/bin/sh]
+  entrypoint: []
+  volumes: []

@@ -1,25 +1,26 @@
-version: "3.8"
+version: "3"
 
 services:
   ncc-1701:
-    container_name: cockpit_ncc-1701
-    image: roalcantara/cockpit:ncc-1701
+    container_name: ${DK_PROJECT:-cockpit}_${IMAGE_TAG:-ncc-1701}
+    image: ${IMAGE_NAME:-ghcr.io/roalcantara/cockpit:ncc-1701}
     labels:
-      description: "An opiopnated Dev Environment based on Alpine linux."
-    env_file: .env
+      org.opencontainers.image.source: ${REPOSITORY:-https://github.com/roalcantara/cockpit}
+      description: An opiopnated Dev Environment based on Alpine linux
     build:
       context: .
-      target: ncc-1701
       # variables to be used on the image
       args:
         # the user's username
-        USERNAME: $USERNAME
+        USERNAME: ${USERNAME:-dev}
         # the user's group
-        GROUPNAME: $GROUPNAME
+        GROUPNAME: ${GROUPNAME:-wheel}
         # the timezone
-        TZ: $TZ
+        TZ: ${TZ:-America/Sao_Paulo}
         # whether to enable BuildKit - https://docs.docker.com/build/buildkit
-        DOCKER_BUILDKIT: $DOCKER_BUILDKIT
+        DOCKER_BUILDKIT: ${DOCKER_BUILDKIT:-1}
+        # turn on the inline layer caching - https://docs.docker.com/build/buildkit
+        BUILDKIT_INLINE_CACHE: ${BUILDKIT_INLINE_CACHE:-1}
     # configures service containers to run with an allocated stdin (docker run -i)
     stdin_open: true
     # configure service container to run with a TTY (docker run -t)
