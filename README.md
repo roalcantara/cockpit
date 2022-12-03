@@ -2,6 +2,7 @@
 
 [![Verify](https://github.com/roalcantara/cockpit/actions/workflows/verify.yml/badge.svg)](https://github.com/roalcantara/cockpit/actions/workflows/verify.yml)
 [![Release](https://github.com/roalcantara/cockpit/actions/workflows/release.yml/badge.svg)](https://github.com/roalcantara/cockpit/actions/workflows/release.yml)
+[![Deployment](https://github.com/roalcantara/cockpit/actions/workflows/deployment.yml/badge.svg)](https://github.com/roalcantara/cockpit/actions/workflows/deployment.yml)
 
 An opiopnated Dev Environment based on [Alpine linux][12]. Ready to Engage!
 
