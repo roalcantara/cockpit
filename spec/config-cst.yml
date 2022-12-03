@@ -3,13 +3,49 @@ schemaVersion: 2.0.0
 commandTests:
   - name: User should exist
     command: whoami
-    expectedOutput: ["dev"]
+    expectedOutput: [dev]
+  - name: Git is present
+    command: which
+    args: [git]
+    expectedOutput: [/usr/bin/git]
+  - name: Delta is present
+    command: which
+    args: [delta]
+    expectedOutput: [/usr/bin/delta]
+  - name: Fzf is present
+    command: which
+    args: [fzf]
+    expectedOutput: [/usr/bin/fzf]
+  - name: Fd is present
+    command: which
+    args: [fd]
+    expectedOutput: [/usr/bin/fd]
+  - name: Bat is present
+    command: which
+    args: [bat]
+    expectedOutput: [/usr/bin/bat]
+  - name: Lazygit is present
+    command: which
+    args: [lazygit]
+    expectedOutput: [/usr/bin/lazygit]
 
 fileExistenceTests:
   - name: HOME
     path: /home/dev
     shouldExist: true
     permissions: dgrwxr-xr-x
+    uid: 100
+    gid: 10
+  - name: ~/.config
+    path: /home/dev/.config
+    shouldExist: true
+    permissions: dgrwxr-xr-x
+    uid: 100
+    gid: 10
+  - name: ~/.config/git
+    path: /home/dev/.config/git
+    shouldExist: true
+    permissions: drwxr-xr-x
     uid: 100
     gid: 10
 
