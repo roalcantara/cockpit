@@ -104,6 +104,7 @@ Edit the file [`.env`][15] and fill it up properly.
 
 - [Standard Readme][5]
 - [Conventional Commits][7]
+- [CST (Container Structure Tests): validate the structure of your container images][16]
 
 ## Contributing
 
@@ -131,3 +132,4 @@ The project is available as open source under the terms of the [MIT][1] [License
 [13]: https://docs.docker.com/engine/reference/builder "Dockerfile reference"
 [14]: https://docs.docker.com/compose/compose-file "Docker Compose"
 [15]: https://docs.docker.com/compose/compose-file/#env_file "Docker Compose: Env_file format"
+[16]: https://github.com/GoogleContainerTools/container-structure-test "CST (Container Structure Tests): validate the structure of your container images"
