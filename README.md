@@ -1,6 +1,7 @@
 # Cockpit
 
 [![Verify](https://github.com/roalcantara/cockpit/actions/workflows/verify.yml/badge.svg)](https://github.com/roalcantara/cockpit/actions/workflows/verify.yml)
+[![Release](https://github.com/roalcantara/cockpit/actions/workflows/release.yml/badge.svg)](https://github.com/roalcantara/cockpit/actions/workflows/release.yml)
 
 An opiopnated Dev Environment based on [Alpine linux][12]. Ready to Engage!
 
@@ -10,6 +11,7 @@ An opiopnated Dev Environment based on [Alpine linux][12]. Ready to Engage!
 [![Editor Config](https://img.shields.io/badge/Editor%20Config-1.0.1-crimson.svg)][4]
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)][3]
 [![CheckStyle: Hadolint](https://img.shields.io/badge/check_style-hadolint-ee503e.svg)][11]
+[![Semantic Release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)][17]
 
 ## Install
 
@@ -105,6 +107,7 @@ Edit the file [`.env`][15] and fill it up properly.
 - [Standard Readme][5]
 - [Conventional Commits][7]
 - [CST (Container Structure Tests): validate the structure of your container images][16]
+- [Semantic Release][17]
 
 ## Contributing
 
@@ -133,3 +136,4 @@ The project is available as open source under the terms of the [MIT][1] [License
 [14]: https://docs.docker.com/compose/compose-file "Docker Compose"
 [15]: https://docs.docker.com/compose/compose-file/#env_file "Docker Compose: Env_file format"
 [16]: https://github.com/GoogleContainerTools/container-structure-test "CST (Container Structure Tests): validate the structure of your container images"
+[17]: https://semantic-release.gitbook.io/semantic-release "Semantic Release"

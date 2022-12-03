@@ -1,0 +1,111 @@
+---
+# Branches from where releases can happen
+branches:
+  - main
+
+# List of plugins to use.
+# Since this project is an Ansible collection we won't use the npm plugin.
+# We use the changelog plugin to generate CHANGELOG.md and git plugin to commit it
+plugins:
+  # Analyze that commits conform to the preset specification
+  - - "@semantic-release/commit-analyzer"
+    - releaseRules:
+        - type: feat
+          release: minor
+        - type: fix
+          release: patch
+        - type: docs
+          release: patch
+        - type: perf
+          release: patch
+        - type: ref
+          release: patch
+        - type: revert
+          release: patch
+        - type: chore
+          release: false
+        - type: build
+          release: false
+        - type: ci
+          release: false
+        - type: test
+          release: false
+        - type: style
+          release: false
+      parserOpts:
+        noteKeywords:
+          - BREAKING CHANGE
+          - BREAKING CHANGES
+          - BREAKING
+
+  # Generate release notes. These will be embedded in the Github release body
+  - - "@semantic-release/release-notes-generator"
+    - presetConfig:
+        types:
+          - type: feat
+            section: ":sparkles: Features"
+          - type: fix
+            section: ":bug: Bug Fixes"
+          - type: docs
+            section: ":eyes: Misc"
+          - type: chore
+            section: ":eyes: Misc"
+          - type: perf
+            section: ":muscle: Improvements"
+          - type: ref
+            section: ":muscle: Improvements"
+          - type: style
+            section: ":muscle: Improvements"
+          - type: ci
+            section: ":robot: Automation"
+          - type: build
+            section: ":robot: Automation"
+          - type: test
+            section: ":robot: Automation"
+          - type: revert
+            section: ":poop: Revert"
+      writerOpts:
+        groupBy: type
+        commitGroupsSort:
+          - feat
+          - fix
+          - perf
+          - ref
+          - style
+          - ci
+          - build
+          - test
+          - revert
+          - docs
+          - chore
+        commitsSort:
+          - header
+      parserOpts:
+        noteKeywords:
+          - BREAKING CHANGE
+          - BREAKING CHANGES
+          - BREAKING
+
+  # Generate us a changelog file
+  - - "@semantic-release/changelog"
+    - changelogFile: CHANGELOG.md
+
+  # Commit the generated changelog file into our git repo.
+  # Since we are enforcing conventional commits in our project,
+  # we ensure the commit message also follows the specification.
+  # Additionally, to prevent this commit from triggering a new release workflow
+  # (ie. infinite release loop), we use the '[skip ci]' text,
+  # so our release workflow logic can easily filter out / ignore these kind of commits.
+  # In fact, since recently, Github workflows knows how to handle this logic automatically
+  # See (https://github.blog/changelog/2021-02-08-github-actions-skip-pull-request-and-push-workflows-with-skip-ci/)
+  - - "@semantic-release/git"
+    - assets:
+        - CHANGELOG.md
+      message: |
+        chore(release): ${nextRelease.version} [skip ci]
+        ${nextRelease.notes}
+  # Create a release in Github
+  - - "@semantic-release/github"
+    - assets:
+        - path: LICENSE
+          label: LICENSE
