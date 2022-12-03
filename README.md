@@ -1,5 +1,7 @@
 # Cockpit
 
+[![Verify](https://github.com/roalcantara/cockpit/actions/workflows/verify.yml/badge.svg)](https://github.com/roalcantara/cockpit/actions/workflows/verify.yml)
+
 An opiopnated Dev Environment based on [Alpine linux][12]. Ready to Engage!
 
 [![MIT license](https://img.shields.io/badge/License-MIT-brightgreen.svg)](./../LICENSE)

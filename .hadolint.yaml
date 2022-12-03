@@ -2,6 +2,7 @@ failure-threshold: warning
 ignored:
   - DL3018
   - DL3008
+  - SC2155
 strict-labels: false
 trustedRegistries:
   - docker.io
