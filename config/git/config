@@ -1,0 +1,83 @@
+[include]
+  path = alias.inc
+  path = color.inc
+  path = delta.inc
+
+[init]
+  defaultBranch = main
+
+[checkout]
+  defaultRemote=origin
+
+[fetch]
+  prune = true
+
+[log]
+  all = true
+  oneline = true
+  color = always
+  date = relative
+
+[pull]
+  rebase = true
+  default = current
+
+[push]
+  default = current
+  followTags = true
+
+[rebase]
+  autostash = true
+
+[branch]
+  autosetuprebase = always
+
+[pretty]
+  oneline-relative = "format:%C(auto)%h%C(auto)%d%C(reset) %s %C(yellow)(%cr)%Creset"
+
+[format]
+  pretty = "%C(auto)%h%C(auto)%d%C(reset) %s %C(yellow)(%cr)%Creset"
+
+[apply]
+  whitespace = fix # Detect whitespace errors when applying a patch
+
+[web]
+  browser = open
+
+[commit]
+  color = always
+  verbose = true
+
+[advice]
+  addEmptyPathspec = false
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+
+[status]
+  submoduleSummary = true
+  showUntrackedFiles = all
+
+[core]
+  pager = delta
+  color = always
+  autocrlf = input
+  excludesfile = ~/.config/.gitignore
+  attributesfile = attributes
+  quotepath = on # Output unicode characters (e.g. emoji).
+  editor = nvim -c 'startinsert'
+
+[interactive]
+  diffFilter = delta --color-only
+
+[merge]
+  ff = only
+  conflictstyle = diff3
+
+[diff]
+  colorMoved = default
+  algorithm = patience       # Use the slower but better patience diff algorithm
+  compactionheuristic = true # Use new diff algorithm to make e.g. function diffs look better.
