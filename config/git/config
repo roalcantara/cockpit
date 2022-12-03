@@ -81,3 +81,19 @@
   colorMoved = default
   algorithm = patience       # Use the slower but better patience diff algorithm
   compactionheuristic = true # Use new diff algorithm to make e.g. function diffs look better.
+[credential]
+	helper =
+	helper = git-credential-manager
+	credentialStore = gpg
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+[gpg]
+	program = gpg
+[commit]
+  gpgsign = true
+[user]
+  name = roalcantara
+  email = rogerio.alcantara@gmail.com
+  signingkey = 3BE53881AC418610!
+[tag]
+  forceSignAnnotated = true
