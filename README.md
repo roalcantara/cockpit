@@ -5,9 +5,9 @@
 [![Deployment](https://github.com/roalcantara/cockpit/actions/workflows/deployment.yml/badge.svg)](https://github.com/roalcantara/cockpit/actions/workflows/deployment.yml)
 [![DockerHub](https://img.shields.io/docker/pulls/roalcantara/cockpit?style=flat&logo=docker)](https://hub.docker.com/r/roalcantara/cockpit)
 
-An opiopnated Dev Environment based on [Alpine linux][12]. Ready to Engage!
+An opiopnated Dev Environment based on [Alpine linux][12] and [Git][6]. Ready to Engage!
 
-[![MIT license](https://img.shields.io/badge/License-MIT-brightgreen.svg)](./../LICENSE)
+[![MIT license](https://img.shields.io/badge/License-MIT-brightgreen.svg)](LICENSE)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)][2]
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg)][5]
 [![Editor Config](https://img.shields.io/badge/Editor%20Config-1.0.1-crimson.svg)][4]
@@ -27,6 +27,18 @@ git clone https://github.com/roalcantara/cockpit.git
 - [gitlint][7]
 - [pre-commit][8]
 - [docker][9]
+
+## Specs
+
+- [x] [Alpine Linux][12]
+  - [x] [Git][6]
+    - [x] [Bat][18]
+    - [x] [delta][19]
+    - [x] [fd][20]
+    - [x] [fzf][21]
+    - [x] [git-credential-libsecret][22]
+    - [x] [gnupg][23]
+    - [x] [lazygit][24]
 
 ## Configuration
 
@@ -139,3 +151,10 @@ The project is available as open source under the terms of the [MIT][1] [License
 [15]: https://docs.docker.com/compose/compose-file/#env_file "Docker Compose: Env_file format"
 [16]: https://github.com/GoogleContainerTools/container-structure-test "CST (Container Structure Tests): validate the structure of your container images"
 [17]: https://semantic-release.gitbook.io/semantic-release "Semantic Release"
+[18]: https://github.com/sharkdp/bat "bat: A cat(1) clone with wings."
+[19]: https://github.com/dandavison/delta "A syntax-highlighting pager for git, diff, and grep output"
+[20]: https://github.com/sharkdp/fd "fd: A simple, fast and user-friendly alternative to find."
+[21]: https://github.com/junegunn/fzf "fzf: A command-line fuzzy finder"
+[22]: https://git-scm.com "git-credential-libsecret"
+[23]: https://gnupg.org "The GNU Privacy Guard"
+[24]: https://github.com/jesseduffield/lazygit "simple terminal UI for git commands"
