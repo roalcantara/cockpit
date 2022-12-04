@@ -2,6 +2,10 @@
 
 FROM alpine:3.17 AS root
 
+LABEL org.opencontainers.image.source=https://github.com/roalcantara/cockpit
+LABEL org.opencontainers.image.description="An opiopnated Dev Environment based on Alpine linux"
+LABEL org.opencontainers.image.licenses=MIT
+
 ARG USERNAME=dev
 ARG GROUPNAME=wheel
 ARG TZ=America/Sao_Paulo

@@ -15,36 +15,14 @@ env:
   FORCE_COLOR: true
   DOCKER_BUILDKIT: 1
   BUILDKIT_INLINE_CACHE: 1
-  IMG_SRC: https://github.com/${{ github.repository }}
-  IMG_NAME: ghcr.io/${{ github.repository }}:ncc-1701-${{ github.run_number }}
+  IMG_NAME: ghcr.io/${{ github.repository }}
+  IMG_NAME_TAG: ghcr.io/${{ github.repository }}:pr-${{ github.event.pull_request.number }}
 
 concurrency:
   cancel-in-progress: true
   group: "cockpit-${{ github.ref }}"
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-      id-token: write
-    defaults:
-      run:
-        shell: bash
-    steps:
-    - uses: actions/checkout@v3
-    - uses: docker/setup-qemu-action@v2
-    - uses: docker/setup-buildx-action@v2.2.1
-    - uses: docker/build-push-action@v3
-      with:
-        context: .
-        push: false
-        tags: ${{ env.IMG_NAME }}
-        labels: org.opencontainers.image.source=${{ env.IMG_SRC }}
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
-
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -57,53 +35,80 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
   scan:
-    needs: build
+    needs: lint
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: docker/setup-buildx-action@v2.2.1
-      - uses: docker/build-push-action@v3
-        with:
-          context: .
-          push: false
-          load: true
-          tags: ${{ env.IMG_NAME }}
-          labels: org.opencontainers.image.source=${{ env.IMG_SRC }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-      - uses: aquasecurity/trivy-action@master
-        continue-on-error: true
-        with:
-          image-ref: ${{ env.IMG_NAME }}
-          format: sarif
-          exit-code: 1
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'MEDIUM,HIGH,CRITICAL'
-          output: trivy-results.sarif
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: trivy-results.sarif
-
-  validate:
-    needs: build
-    runs-on: ubuntu-latest
+    outputs:
+      tags: ${{ steps.meta.outputs.tags }}
+      labels: ${{ steps.meta.outputs.labels }}
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: bash
     steps:
     - uses: actions/checkout@v3
     - uses: docker/setup-buildx-action@v2.2.1
-    - uses: docker/build-push-action@v3
+    - uses: docker/login-action@v2.1.0
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - uses: docker/metadata-action@v4.1.1
+      id: meta
+      with:
+        images: ${{ env.IMG_NAME }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+    - uses: docker/build-push-action@v3.2.0
       with:
         context: .
         push: false
         load: true
-        tags: ${{ env.IMG_NAME }}
-        labels: org.opencontainers.image.source=${{ env.IMG_SRC }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+    - uses: aquasecurity/trivy-action@master
+      if: success()
+      continue-on-error: true
+      with:
+        image-ref: ${{ env.IMG_NAME_TAG }}
+        format: sarif
+        exit-code: 1
+        ignore-unfixed: true
+        vuln-type: 'os,library'
+        severity: 'MEDIUM,HIGH,CRITICAL'
+        output: trivy-results.sarif
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: trivy-results.sarif
+
+  validate:
+    needs: scan
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - uses: actions/checkout@v3
+    - uses: docker/setup-buildx-action@v2.2.1
+    - uses: docker/login-action@v2.1.0
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - uses: docker/build-push-action@v3.2.0
+      with:
+        context: .
+        push: false
+        load: true
+        tags: ${{ needs.scan.outputs.tags }}
+        labels: ${{ needs.scan.outputs.labels }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
     - uses: docker://gcr.io/gcp-runtimes/container-structure-test:latest
       with:
-        args: test -v debug --force --output junit --test-report cst_junit_report.xml --config spec/config-cst.yml --image ${{ env.IMG_NAME }}
+        args: test -v debug --force --output junit --test-report cst_junit_report.xml --config spec/config-cst.yml --image ${{ env.IMG_NAME_TAG }}
     - uses: actions/upload-artifact@v3
       if: always()
       with:
@@ -114,3 +119,36 @@ jobs:
       with:
         report_paths: cst_junit_report.xml
         github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  preview:
+    needs:
+      - scan
+      - validate
+    runs-on: ubuntu-latest
+    environment:
+      name: preview
+      url: https://${{ env.IMG_NAME_TAG }}
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - uses: actions/checkout@v3
+    - uses: docker/setup-qemu-action@v2
+    - uses: docker/setup-buildx-action@v2.2.1
+    - uses: docker/login-action@v2.1.0
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - uses: docker/build-push-action@v3.2.0
+      with:
+        context: .
+        push: true
+        tags: ${{ needs.scan.outputs.tags }}
+        labels: ${{ needs.scan.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
