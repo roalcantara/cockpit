@@ -5,7 +5,7 @@
 [![Deployment](https://github.com/roalcantara/cockpit/actions/workflows/deployment.yml/badge.svg)](https://github.com/roalcantara/cockpit/actions/workflows/deployment.yml)
 [![DockerHub](https://img.shields.io/docker/pulls/roalcantara/cockpit?style=flat&logo=docker)](https://hub.docker.com/r/roalcantara/cockpit)
 
-An opiopnated Dev Environment based on [Alpine linux][12] and [Git][6]. Ready to Engage!
+An opiopnated Dev Environment based on [Alpine linux][12], [Git][6] and [ZSH][25]. Ready to Engage!
 
 [![MIT license](https://img.shields.io/badge/License-MIT-brightgreen.svg)](LICENSE)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)][2]
@@ -39,6 +39,20 @@ git clone https://github.com/roalcantara/cockpit.git
     - [x] [git-credential-libsecret][22]
     - [x] [gnupg][23]
     - [x] [lazygit][24]
+  - [x] [ZSH][25]
+    - [x] [EXA][26]
+    - [x] [jq][27]
+    - [x] [RipGrep][28]
+    - [x] [tree][29]
+    - [x] [starship][30]
+    - [x] [sheldon][31]
+      - [x] [zsh-smartcache][32]
+      - [x] [zsh-defer][33]
+      - [x] [zsh-completions][34]
+      - [x] [zsh-history-substring-search][35]
+      - [x] [zsh-autosuggestions][36]
+      - [x] [zsh-syntax-highlighting][37]
+      - [x] [fzf-tab][38]
 
 ## Configuration
 
@@ -158,3 +172,17 @@ The project is available as open source under the terms of the [MIT][1] [License
 [22]: https://git-scm.com "git-credential-libsecret"
 [23]: https://gnupg.org "The GNU Privacy Guard"
 [24]: https://github.com/jesseduffield/lazygit "simple terminal UI for git commands"
+[25]: https://zsh.sourceforge.io/ "Zsh: A shell designed for interactive use, although it is also a powerful scripting language."
+[26]: https://the.exa.website "exa: A modern replacement for ls."
+[27]: https://stedolan.github.io/jq/ "jq: Lightweight and flexible command-line JSON processor"
+[28]: https://github.com/BurntSushi/ripgrep "ripgrep: ripgrep recursively searches directories for a regex pattern"
+[29]: http://mama.indstate.edu/users/ice/tree/ "tree: A recursive directory listing command that produces a depth indented listing of files."
+[30]: https://starship.rs "The minimal, blazing-fast, and infinitely customizable prompt for any shell!"
+[31]: https://sheldon.cli.rs "A fast, configurable, command-line tool to manage your shell plugins"
+[32]: https://github.com/QuarticCat/zsh-smartcache "Cache command output to improve shell startup time"
+[33]: https://github.com/romkatv/zsh-defer "A zsh plugin that defers the execution of commands until the shell is idle."
+[34]: https://github.com/zsh-users/zsh-completions "Additional completion definitions for Zsh."
+[35]: https://github.com/zsh-users/zsh-history-substring-search "Zsh port of Fish shell history search"
+[36]: https://github.com/zsh-users/zsh-autosuggestions "Fish-like autosuggestions for zsh"
+[37]: https://github.com/zsh-users/zsh-syntax-highlighting "Fish shell like syntax highlighting for Zsh"
+[38]: https://github.com/Aloxaf/fzf-tab "Replace zsh's default completion selection menu with fzf!"

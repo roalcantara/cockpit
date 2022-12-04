@@ -28,6 +28,34 @@ commandTests:
     command: which
     args: [lazygit]
     expectedOutput: [/usr/bin/lazygit]
+  - name: zsh is present
+    command: which
+    args: [zsh]
+    expectedOutput: [/bin/zsh]
+  - name: exa is present
+    command: which
+    args: [exa]
+    expectedOutput: [/usr/bin/exa]
+  - name: jq is present
+    command: which
+    args: [jq]
+    expectedOutput: [/usr/bin/jq]
+  - name: ripgrep is present
+    command: which
+    args: [rg]
+    expectedOutput: [/usr/bin/rg]
+  - name: tree is present
+    command: which
+    args: [tree]
+    expectedOutput: [/usr/bin/tree]
+  - name: sheldon is present
+    command: which
+    args: [sheldon]
+    expectedOutput: [/usr/bin/sheldon]
+  - name: starship is present
+    command: which
+    args: [starship]
+    expectedOutput: [/usr/bin/starship]
 
 fileExistenceTests:
   - name: HOME
@@ -48,17 +76,131 @@ fileExistenceTests:
     permissions: drwxr-xr-x
     uid: 100
     gid: 10
+  - name: ~/.config/zsh/.zshrc
+    path: /home/dev/.config/zsh/.zshrc
+    shouldExist: true
+    permissions: -rw-r--r--
+    uid: 100
+    gid: 10
+  - name: ~/.config/zsh/.zprofile
+    path: /home/dev/.config/zsh/.zprofile
+    shouldExist: true
+    permissions: -rw-r--r--
+    uid: 100
+    gid: 10
+  - name: ~/.config/zsh/etc/include/dots.zsh
+    path: /home/dev/.config/zsh/etc/include/dots.zsh
+    shouldExist: true
+    permissions: -rwxr-xr-x
+    uid: 100
+    gid: 10
+  - name: ~/.config/zsh/etc/include/compile.zsh
+    path: /home/dev/.config/zsh/etc/include/compile.zsh
+    shouldExist: true
+    permissions: -rw-r--r--
+    uid: 100
+    gid: 10
+  - name: ~/.config/sheldon
+    path: /home/dev/.config/sheldon/plugins.toml
+    shouldExist: true
+    permissions: -rw-r--r--
+    uid: 100
+    gid: 10
+  - name: ~/.config/zsh/starship
+    path: /home/dev/.config/starship/starship.toml
+    shouldExist: true
+    permissions: -rwxr-xr-x
+    uid: 100
+    gid: 10
+  - name: ~/.local/share/zsh/sheldon/
+    path: /home/dev/.local/share/zsh/sheldon/plugins.lock
+    shouldExist: true
+    permissions: -rw-r--r--
+    uid: 100
+    gid: 10
+  - name: ~/.local/share/zsh/sheldon/repos
+    path: /home/dev/.local/share/zsh/sheldon/repos
+    shouldExist: true
+    permissions: dgrwxr-xr-x
+    uid: 100
+    gid: 10
 
 fileContentTests:
   - name: sudoers
     path: /etc/sudoers
     expectedContents: ['.*wheel ALL=\(ALL\) NOPASSWD:ALL.*']
 
+globalEnvVars:
+  - key: XDG_CONFIG_HOME
+    value: /home/dev/.config
+  - key: XDG_DATA_HOME
+    value: /home/dev/.local/share
+  - key: XDG_STATE_HOME
+    value: /home/dev/.local/state
+  - key: XDG_CACHE_HOME
+    value: /home/dev/.cache
+  - key: XDG_DATA_DIRS
+    value: /usr/local/share/:/usr/share/
+  - key: XDG_CONFIG_DIRS
+    value: /etc/xdg
+
 metadataTest:
   envVars:
+    - key: USER
+      value: dev
     - key: HOME
       value: /home/dev
+    - key: TZ
+      value: America/Sao_Paulo
+    - key: LANG
+      value: en_US.UTF-8
+    - key: LANGUAGE
+      value: en_US:en
+    - key: LC_ALL
+      value: en_US.UTF-8
+    - key: TERM
+      value: xterm-256color
+    - key: COLORTERM
+      value: truecolor
+    - key: PAGER
+      value: less -FRi
+    - key: LESS
+      value: -RF
+    - key: MANROFFOPT
+      value: -c
+    - key: DIRSTACKSIZE
+      value: 100
+    - key: REPORTTIME
+      value: 10
+    - key: KEYTIMEOUT
+      value: 1
+    - key: HISTSIZE
+      value: 1000000000
+    - key: SAVEHIST
+      value: 1000000000
+    - key: CLICOLOR
+      value: 1
+    - key: GIT_AUTHOR_NAME
+      value: Rogério R. Alcântara
+    - key: GIT_AUTHOR_EMAIL
+      value: rogerio.alcantara@gmail.com
+    - key: GIT_COMMITTER_NAME
+      value: roalcantara
+    - key: GIT_COMMITTER_EMAIL
+      value: rogerio.alcantara@gmail.com
+    - key: SHELL
+      value: /bin/zsh
+    - key: ZDOTDIR
+      value: /home/dev/.config/zsh
+    - key: ZSH_SMARTCACHE_DIR
+      value: /home/dev/.cache/zsh/zsh-smartcache
+    - key: SHELDON_DATA_DIR
+      value: /home/dev/.local/share/zsh/sheldon
+    - key: STARSHIP_CACHE
+      value: /home/dev/.cache/zsh/starship
+    - key: ZSH_COMPDUMP
+      value: /home/dev/.cache/zsh/compcache/.zcompdump
+
   workdir: /home/dev
-  cmd: [/bin/sh]
-  entrypoint: []
+  entrypoint: [ "/bin/zsh", "-l" ]
   volumes: []

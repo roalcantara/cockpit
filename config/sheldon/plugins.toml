@@ -1,0 +1,58 @@
+# Sheldon is a fast, configurable, command-line tool to manage your shell plugins.
+# https://sheldon.cli.rs
+
+# A template defines how the shell source for a particular plugin is generated
+# https://sheldon.cli.rs/Configuration.html#templates
+[templates]
+  defer="{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}"
+
+# A plugin is a collection of shell source files
+# https://sheldon.cli.rs/Configuration.html#plugin-sources
+[plugins]
+[plugins.include]
+  local='~/.config/zsh/etc/include'
+
+# Cache command output to improve shell startup time
+# https://github.com/QuarticCat/zsh-smartcache
+[plugins.zsh-smartcache]
+  github='QuarticCat/zsh-smartcache'
+
+# The minimal, blazing-fast, and infinitely customizable prompt for any shell!
+# https://starship.rs
+[plugins.starship]
+  inline='smartcache eval starship init zsh'
+
+# Defers the execution of commands until the shell is idle
+# https://github.com/romkatv/zsh-defer
+[plugins.zsh-defer]
+  github='romkatv/zsh-defer'
+
+# Additional completion definitions for Zsh
+# https://github.com/zsh-users/zsh-completions
+[plugins.zsh-completions]
+  apply =['defer']
+  github='zsh-users/zsh-completions'
+
+# Zsh port of Fish shell history search
+# https://github.com/zsh-users/zsh-history-substring-search
+[plugins.zsh-history-substring-search]
+  apply =['defer']
+  github='zsh-users/zsh-history-substring-search'
+
+# Fish-like autosuggestions for zsh
+# https://github.com/zsh-users/zsh-autosuggestions
+[plugins.zsh-autosuggestions]
+  apply =['defer']
+  github='zsh-users/zsh-autosuggestions'
+
+# Fish shell like syntax highlighting for Zsh.
+# https://github.com/zsh-users/zsh-syntax-highlighting
+[plugins.zsh-syntax-highlighting]
+  apply =['defer']
+  github='zsh-users/zsh-syntax-highlighting'
+
+# Replace zsh's default completion selection menu with fzf
+# https://github.com/Aloxaf/fzf-tab
+[plugins.fzf-tab]
+  apply =['defer']
+  github='Aloxaf/fzf-tab'
