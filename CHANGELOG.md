@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/roalcantara/cockpit/compare/v1.0.0...v1.1.0) (2022-12-04)
+
+
+### Bug Fixes
+
+* **ci:** Fix deployment workflow ([912cdfe](https://github.com/roalcantara/cockpit/commit/912cdfe5032846b7189312d26d55b61852441899))
+
+
+### Features
+
+* **shells:** Add ZSH as default shell ([64f88ba](https://github.com/roalcantara/cockpit/commit/64f88ba0ca5c9ae141dc88743997a54e31672ed9))
+
 # 1.0.0 (2022-12-04)
 
 
