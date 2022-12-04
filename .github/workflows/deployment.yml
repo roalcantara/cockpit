@@ -35,7 +35,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: ${{ github.repository }}:latest
+          images: ${{ github.repository }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push Docker image with Buildx
         id: build-and-push
@@ -44,12 +44,11 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ github.repository }}:latest
-            ${{ github.repository }}:ncc-1701
             ${{ steps.meta.outputs.tags }}
+            roalcantara/cockpit:latest
+            roalcantara/cockpit:ncc-1701
           labels: |
             ${{ steps.meta.outputs.labels }}
-            org.opencontainers.image.source=https://hub.docker.com/repository/docker/${{ github.repository }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
       # This will only write to the public Rekor transparency log when the Docker
@@ -94,13 +93,8 @@ jobs:
       with:
         context: .
         push: true
-        tags: |
-          ghcr.io/${{ github.repository }}:latest
-          ghcr.io/${{ github.repository }}:ncc-1701
-          ${{ steps.meta.outputs.tags }}
-        labels: |
-          ${{ steps.meta.outputs.labels }}
-          org.opencontainers.image.source=https://github.com/${{ github.repository }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
     # This will only write to the public Rekor transparency log when the Docker
@@ -109,7 +103,7 @@ jobs:
     # pass --force to cosign below. https://github.com/sigstore/cosign
     - name: Sign the resulting Docker image digest
       env:
-        COSIGN_EXPERIMENTAL: "true"
+        COSIGN_EXPERIMENTAL: true
       # This step uses the identity token to provision an ephemeral certificate
       # against the sigstore community Fulcio instance.
       run: echo "${{ steps.meta.outputs.tags }}" | xargs -I {} cosign sign {}@${{ steps.build-and-push.outputs.digest }}
