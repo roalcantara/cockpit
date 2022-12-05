@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/roalcantara/cockpit/compare/v1.1.1...v1.1.2) (2022-12-05)
+
+
+### Bug Fixes
+
+* **ci:** Fix deployment workflow ([7940ece](https://github.com/roalcantara/cockpit/commit/7940eced97472a519562cc5414aa8242cb801016))
+
 ## [1.1.1](https://github.com/roalcantara/cockpit/compare/v1.1.0...v1.1.1) (2022-12-05)
 
 
