@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/roalcantara/cockpit/compare/v1.1.2...v1.1.3) (2022-12-05)
+
+
+### Bug Fixes
+
+* **ci:** Fix metadata references ([aa10da9](https://github.com/roalcantara/cockpit/commit/aa10da9a6b65e980b75c04f4a5e2c54bbb320b46))
+
 ## [1.1.2](https://github.com/roalcantara/cockpit/compare/v1.1.1...v1.1.2) (2022-12-05)
 
 
