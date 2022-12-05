@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/roalcantara/cockpit/compare/v1.1.3...v1.1.4) (2022-12-05)
+
+
+### Bug Fixes
+
+* **ci:** Set preview environment variable ([1bd7210](https://github.com/roalcantara/cockpit/commit/1bd72104282a8431361591d8f9e011ff8746be1c))
+
 ## [1.1.3](https://github.com/roalcantara/cockpit/compare/v1.1.2...v1.1.3) (2022-12-05)
 
 
