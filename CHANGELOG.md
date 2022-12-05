@@ -1,3 +1,11 @@
+## [1.1.1](https://github.com/roalcantara/cockpit/compare/v1.1.0...v1.1.1) (2022-12-05)
+
+
+### Bug Fixes
+
+* **ci:** Remove cosign from deployment workflow ([378766d](https://github.com/roalcantara/cockpit/commit/378766d47f246e8f0b20fcfc4f904ecde9f859ac))
+* **ci:** Reuse steps on verify workflow ([1fb4421](https://github.com/roalcantara/cockpit/commit/1fb44218c238dcc88d648d8a7f36e9b75f18123a))
+
 # [1.1.0](https://github.com/roalcantara/cockpit/compare/v1.0.0...v1.1.0) (2022-12-04)
 
 
