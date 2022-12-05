@@ -45,6 +45,9 @@ jobs:
 
   ghcr:
     runs-on: ubuntu-latest
+    environment:
+      name: preview
+      url: https://ghcr.io/${{ github.repository }}
     permissions:
       contents: read
       packages: write
