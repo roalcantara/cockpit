@@ -53,6 +53,7 @@ jobs:
     - uses: actions/checkout@v3
     - uses: docker/setup-buildx-action@v2.2.1
     - uses: docker/metadata-action@v4.1.1
+      id: meta
       with:
         images: ghcr.io/${{ github.repository }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -66,5 +67,5 @@ jobs:
     - uses: docker/build-push-action@v3.2.0
       with:
         push: true
-        tags: ${{ needs.setup.outputs.tags }}
-        labels: ${{ needs.setup.outputs.labels }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
